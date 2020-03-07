@@ -1,0 +1,13 @@
+.myTable {
+    background-color: salmon;
+    padding: 10%;
+}
+.cell {
+    margin-right: 10px;
+}
+.cell:last-child {
+    margin-right: 0px;
+}
+.selected {
+    color: red;
+}
