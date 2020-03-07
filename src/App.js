@@ -26,8 +26,6 @@ import Posts from "./components/Posts";
 //     }
 // }
 
-
-
 //использование hooks
 const App = () => {
 
