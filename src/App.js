@@ -3,6 +3,7 @@ import Table from './components/Table';
 import axios from 'axios';
 import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
+import './App.css';
 
 // const data = [{ id: 1, title: 'Conan the Barbarian', summary: 'Orphaned boy Conan is enslaved after his village is destroyed...', year: '1982' }];
 // const columns = [
@@ -53,13 +54,16 @@ const App = () => {
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
     //Change page
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
-        <div className='container'>
-            <h1>My app</h1>
-            <Posts posts={currentPosts} loading={loading}/>
-            <Pagination postsPerPage={postPerPage} total={posts.length} paginate={paginate}/>
+        <div className='container mt-5'>
+            <h1 className='text-primary mb-3'>My app</h1>
+            <Posts posts={currentPosts} loading={loading} className='table'/>
+            <Pagination postsPerPage={postPerPage}
+                        totalPosts={posts.length}
+                        paginate={paginate}
+            />
         </div>
     )
 

@@ -1,0 +1,13 @@
+
+a {
+    text-decoration: none;
+}
+.page-item{
+    display: inline;
+    margin-right: 10px;
+    border: 1px solid #b3b3cc; /* Рамка вокруг текста */
+    padding: 3px; /* Поля вокруг текста */
+}
+.page-item:last-child{
+    margin-right: 0;
+}

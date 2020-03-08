@@ -1,4 +1,5 @@
 import React from "react";
+import './posts.css';
 
 const Posts = ({posts, loading}) => {
     if (loading) {
@@ -7,7 +8,8 @@ const Posts = ({posts, loading}) => {
 
 
     return (
-        <table>
+        <div >
+        <table className='table'>
             <thead>
             <tr>
                 <td className="cell"> id</td>
@@ -25,9 +27,9 @@ const Posts = ({posts, loading}) => {
             <tbody>
             {posts.map(item => (
                 <tr>
-                    <td key={item.id}>{item.id}</td>
-                    <td >{item.firstName}</td>
-                    <td >{item.lastName}</td>
+                    <td className='cell' key={item.id}>{item.id}</td>
+                    <td className='cell' >{item.firstName}</td>
+                    <td className='cell' >{item.lastName}</td>
                     <td >{item.email}</td>
                     <td >{item.phone}</td>
                     <td >{item.address.streetAddress}</td>
@@ -39,6 +41,7 @@ const Posts = ({posts, loading}) => {
             ))}
             </tbody>
         </table>
+        </div>
     )
 };
 
