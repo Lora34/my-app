@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import Table from './components/Table';
 import axios from 'axios';
 import Posts from "./components/Posts";
+import Pagination from "./components/Pagination";
 
 // const data = [{ id: 1, title: 'Conan the Barbarian', summary: 'Orphaned boy Conan is enslaved after his village is destroyed...', year: '1982' }];
 // const columns = [
@@ -32,7 +33,7 @@ const App = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postPerPage, setPostPerPage] = useState(5);
+    const [postPerPage] = useState(5);
 
 
     useEffect(() => {
@@ -42,6 +43,7 @@ const App = () => {
             setPosts(res.data);
             setLoading(false);
         }
+
         fetchPosts();
     }, []);
 
@@ -50,10 +52,14 @@ const App = () => {
     const indexOfFirstPost = indexOfLastPost - postPerPage;
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
+    //Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <div className='container'>
             <h1>My app</h1>
             <Posts posts={currentPosts} loading={loading}/>
+            <Pagination postsPerPage={postPerPage} total={posts.length} paginate={paginate}/>
         </div>
     )
 
