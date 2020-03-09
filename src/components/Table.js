@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './myTable.css';
+// import styles from './myTable.css';
 // import DataTable from "react-data-table-component";
 /*
 const columns = [
@@ -50,6 +50,8 @@ class Table extends React.Component {
     submitForm = (e) => {
         e.preventDefault();
     }
+
+
     curPage = (p) => {
         this.setState({currentPage: p});
     }

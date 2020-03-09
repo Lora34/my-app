@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import Table from './components/Table';
 import axios from 'axios';
 import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
@@ -34,7 +33,11 @@ const App = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postPerPage] = useState(5);
+    const [postsPerPage] = useState(10);
+    const [search, setSearch] = useState('');
+    const [value, setValue] = useState('');
+
+
 
 
     useEffect(() => {
@@ -49,18 +52,44 @@ const App = () => {
     }, []);
 
     //Get current posts
-    const indexOfLastPost = currentPage * postPerPage;
-    const indexOfFirstPost = indexOfLastPost - postPerPage;
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
     //Change page
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
+    //Search
+    // const updateSearch = () => {
+    //     setSearch({value});
+    // };
+    const myInput = event => {
+        if (event.target.value !== '') {
+            setValue(event.target.value);
+        }
+        else
+            setSearch(event.target.value);
+        console.log(search);
+
+    };
+
+    const submitForm = (e) => {
+        e.preventDefault();
+    };
+
+
+
     return (
+
         <div className='container mt-5'>
             <h1 className='text-primary mb-3'>My app</h1>
-            <Posts posts={currentPosts} loading={loading} className='table'/>
-            <Pagination postsPerPage={postPerPage}
+            <form onSubmit={submitForm}>
+                <input type="text"  onChange={event => setValue(event.target.value)}/>
+                <input type="submit" onClick={myInput}/>
+            </form>
+
+            <Posts posts={currentPosts} loading={loading} search={search} className='table'/>
+            <Pagination postsPerPage={postsPerPage}
                         totalPosts={posts.length}
                         paginate={paginate}
             />

@@ -1,11 +1,15 @@
 import React from "react";
 import './posts.css';
 
-const Posts = ({posts, loading}) => {
+const Posts = ({posts, loading, search}) => {
     if (loading) {
         return <h2>Loading...</h2>
     }
-
+    const data = posts.filter(
+        (item) => {
+            return item.firstName.toLowerCase().indexOf(search) !== -1;
+        }
+    );
 
     return (
         <div >
@@ -25,7 +29,7 @@ const Posts = ({posts, loading}) => {
             </tr>
             </thead>
             <tbody>
-            {posts.map(item => (
+            {data.map(item => (
                 <tr>
                     <td className='cell' key={item.id}>{item.id}</td>
                     <td className='cell' >{item.firstName}</td>
