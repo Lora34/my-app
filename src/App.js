@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import Posts from "./components/Posts";
+import Posts from "./components/Posts/posts";
 import Pagination from "./components/Pagination";
 import './App.css';
 import FilteredList from './components/FilteredList'
@@ -134,14 +134,14 @@ const App = () => {
             {/*    <input type="text"  onChange={event => setValue(event.target.value)}/>*/}
             {/*    <input type="submit" onClick={myInput}/>*/}
             {/*</form>*/}
+        <Posts />
+            {/*<Search onChangeValue={onChangeValue} setSearch={setSearch}/>*/}
+            {/*{isSearch ? <FilteredList filteredItems={filteredItems}/> : <Posts  posts={currentPosts} loading={loading}  sortBy={sortBy} onSort={onSort} className='table'/>}*/}
 
-            <Search onChangeValue={onChangeValue} setSearch={setSearch}/>
-            {isSearch ? <FilteredList filteredItems={filteredItems}/> : <Posts  posts={currentPosts} loading={loading}  sortBy={sortBy} onSort={onSort} className='table'/>}
-
-            <Pagination postsPerPage={postsPerPage}
-                        totalPosts={posts.length}
-                        paginate={paginate}
-            />
+            {/*<Pagination postsPerPage={postsPerPage}*/}
+            {/*            totalPosts={posts.length}*/}
+            {/*            paginate={paginate}*/}
+            {/*/>*/}
         </div>
     )
 
