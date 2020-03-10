@@ -1,23 +1,32 @@
 import React from "react";
 import './posts.css';
 
-const Posts = ({posts, loading, search}) => {
+const Posts = ({posts, loading, sortBy, onSort}) => {
+
+
     if (loading) {
         return <h2>Loading...</h2>
     }
-    const data = posts.filter(
-        (item) => {
-            return item.firstName.toLowerCase().indexOf(search) !== -1;
-        }
-    );
+
+    // const data = posts.filter(
+    //     (item) => {
+    //         return item.firstName.toLowerCase().indexOf(search) !== -1;
+    //     }
+    // );
 
     return (
         <div >
         <table className='table'>
             <thead>
             <tr>
-                <td className="cell"> id</td>
-                <td className="cell"> firstName</td>
+                <td className="cell">
+                    <button onClick={() => sortBy('id')}>id</button>
+                    </td>
+                <td className="cell">
+                    <button onClick={() => onSort('asc', 'lastName')}>Sort by asc</button>
+                    <button onClick={() => onSort('desc', 'lastName')}>Sort by desc</button>
+                    firstName
+                </td>
                 <td className="cell"> lastName</td>
                 <td className="cell"> email</td>
                 <td className="cell"> phone</td>
@@ -29,7 +38,7 @@ const Posts = ({posts, loading, search}) => {
             </tr>
             </thead>
             <tbody>
-            {data.map(item => (
+            {posts.map(item => (
                 <tr>
                     <td className='cell' key={item.id}>{item.id}</td>
                     <td className='cell' >{item.firstName}</td>

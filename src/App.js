@@ -3,6 +3,8 @@ import axios from 'axios';
 import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
 import './App.css';
+import FilteredList from './components/FilteredList'
+import Search from "./components/Search";
 
 // const data = [{ id: 1, title: 'Conan the Barbarian', summary: 'Orphaned boy Conan is enslaved after his village is destroyed...', year: '1982' }];
 // const columns = [
@@ -34,8 +36,12 @@ const App = () => {
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
-    const [search, setSearch] = useState('');
+    const [isSearch, setSearch] = useState(false);
     const [value, setValue] = useState('');
+    const [filteredItems, setFilteredItems] = useState(null);
+    const [direction, setDirection] = useState('asc');
+    const [sortType, setSortType] = useState('asc');
+    const [nameData1, setNameData1] = useState('firstName');
 
 
 
@@ -50,6 +56,11 @@ const App = () => {
 
         fetchPosts();
     }, []);
+
+    //Edd new elem
+    useEffect(() => {
+        const raw = localStorage.getItem('')
+    })
 
     //Get current posts
     const indexOfLastPost = currentPage * postsPerPage;
@@ -69,7 +80,7 @@ const App = () => {
         }
         else
             setSearch(event.target.value);
-        console.log(search);
+        // console.log(search);
 
     };
 
@@ -77,18 +88,56 @@ const App = () => {
         e.preventDefault();
     };
 
+    let onChangeValue = (filteredTitle) => {
+        let filteredItems = posts;
 
+        filteredTitle.length > 0 && setSearch(true);
+
+        filteredItems = filteredItems.filter(item => {
+            let filteredItem = item.firstName.toLowerCase();
+            return filteredItem.includes(filteredTitle.toLowerCase()) !== false;
+        });
+        setFilteredItems(filteredItems);
+    };
+
+    let sortBy = (key) => {
+        // console.log(key);
+        setPosts(posts.sort((a, b) => (
+            direction === 'asc'
+            ? (a[key]) - (b[key])
+                : (b[key]) - (a[key])
+        )));
+        setDirection(
+            direction === 'asc'
+            ? 'desc'
+                : 'asc'
+        );
+    };
+    let onSort =  (sortType, ab) => {
+        setSortType(sortType);
+        setPosts(posts.sort((a,b) => {
+            let isReversed = (sortType === 'asc') ? 1 : -1;
+            return isReversed * a.ab.localeCompare(b.ab);
+        }));
+    };
+    // const sorted = posts.sort((a,b) => {
+    //    let isReversed = (sortType === 'asc') ? 1 : -1;
+    //    return isReversed = a.firstName.localeCompare(b.firstName);
+    // });
 
     return (
 
+
         <div className='container mt-5'>
             <h1 className='text-primary mb-3'>My app</h1>
-            <form onSubmit={submitForm}>
-                <input type="text"  onChange={event => setValue(event.target.value)}/>
-                <input type="submit" onClick={myInput}/>
-            </form>
+            {/*<form onSubmit={submitForm}>*/}
+            {/*    <input type="text"  onChange={event => setValue(event.target.value)}/>*/}
+            {/*    <input type="submit" onClick={myInput}/>*/}
+            {/*</form>*/}
 
-            <Posts posts={currentPosts} loading={loading} search={search} className='table'/>
+            <Search onChangeValue={onChangeValue} setSearch={setSearch}/>
+            {isSearch ? <FilteredList filteredItems={filteredItems}/> : <Posts  posts={currentPosts} loading={loading}  sortBy={sortBy} onSort={onSort} className='table'/>}
+
             <Pagination postsPerPage={postsPerPage}
                         totalPosts={posts.length}
                         paginate={paginate}

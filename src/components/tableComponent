@@ -1,0 +1,22 @@
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
+import Posts from "./components/Posts";
+import Pagination from "./components/Pagination";
+import './App.css';
+import FilteredList from './components/FilteredList'
+import Search from "./components/Search";
+
+export default function() {
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+    const [isSearch, setSearch] = useState(false);
+    const [value, setValue] = useState('');
+    const [filteredItems, setFilteredItems] = useState(null);
+    const [direction, setDirection] = useState('asc');
+    const [sortType, setSortType] = useState('asc');
+    const [nameData1, setNameData1] = useState('firstName');
+
+
+}
